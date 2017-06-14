@@ -57,5 +57,23 @@
 
 #### 正则化算法
 
+正则化算法用于对过度拟合或者复杂度太高的模型进行简化，提高模型通用性的方法的延伸。正则化算法主要有：
 
+-  岭回归（Ridge Regression）
+-   最小绝对收缩与选择算子 (LASSO, Least Absolute Shrinkage and Selection Operator)
+-  弹性网络 Elastic Net
+-  最小角回归 (LARS, Least-Angle Regression )
+
+#### 决策树算法
+
+贝叶斯算法是用贝叶斯定理进行分类和回归的方法，主要有：
+
+-  朴素贝叶斯 Naive Bayes
+-  高斯朴素贝叶斯 Gaussian Naive Bayes
+-  多项式朴素贝叶斯 Multinomial Naive Bayes
+-   平均1-相依估计量(AODE， Averaged One-Dependence Estimators)
+-  贝叶斯信念网络 (BBN,  Bayesian Belief Network)
+-  贝叶斯网络 Bayesian Network (BN)
+
+#### 聚类算法
 
