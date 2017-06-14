@@ -33,3 +33,29 @@
 
 ### 根据相似性分类
 
+我们经常根据算法的功能(怎么计算)将算法进行分类。比如说，基于树的算法和基于神经网络的算法。但是仍然有一些算法可以分到几个类目下，比如学习矢量量化（LVQ，Vector Quantization ）算法，既是神经网络算法也是基于实例的算法。也有一些名字相同的类目用于不同的场景比如回归和聚类。
+
+#### 回归算法
+
+回归关注变量之间关系的建模。通过模型提供预测错误的度量进行不断迭代重定义变量之间的关系来实现。回归广泛的应用于统计学，已经被并入统计机器学习。数据样本一般是一些离散的值，回归算法试着推测出这一系列连续值属性。主流的回归算法有：
+
+-   普通最小二(OLSR, Ordinary Least Squares Regression)
+-  线性回归 Linear Regression
+-  逻辑回归 Logistic Regression
+-  多元分析回归(逐步回归) Stepwise Regression
+-  多元自适应回归样条 (MARS, Multivariate Adaptive Regression Splines)
+-   本地散点平滑估计(LOESS, Locally Estimated Scatterplot Smoothing)
+
+#### 基于实例的算法
+
+基于实例学习解决的是决策问题。需要提供对于训练集来说重要的或者对模型来说必须的实例或者样本。这种算法一般会建立一个样本数据的数据库，将新数据与数据库中的数据对比衡量相似性找到最佳匹配做出预测。算法关注存储实例的展示和相似性衡量。主要有：
+
+-  k邻近算法(kNN, k-Nearest Neighbor )
+-  学习矢量量化(LVQ,  Learning Vector Quantization)
+-  自组织映射模型 (SOM，Self-Organizing Map)
+-  局部加权学习 (LWL， Locally Weighted Learning)
+
+#### 正则化算法
+
+
+
