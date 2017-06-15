@@ -2,6 +2,8 @@
 
 >  本文是原文的简略版笔记，英文原版[在此](http://machinelearningmastery.com/a-tour-of-machine-learning-algorithms/)
 
+## 算法分类
+
 可以从两种维度来考虑和分类可能遇到的算法
 
 1. 根据学习方式来分类
@@ -76,4 +78,83 @@
 -  贝叶斯网络 Bayesian Network (BN)
 
 #### 聚类算法
+
+聚类算法和回归类似，解决的是问题或方法的归类。聚类算法由比如基于质心的或者是分层的建模方式组成。为了达到将所有数据最好的归纳到尽可能大的分组里，所有的方式都由数据的内在结构决定。主流算法有:
+
+-  K平均值 k-Means
+-  K中位数 k-Medians
+-   期望最大化 (EM, Expectation Maximisation)
+-  层次聚类 Hierarchical Clustering
+
+#### 关联规则学习算法
+
+关联规则学习算法提取最合理的数据集中变量之间关系的规则。这些规则能帮助我们发现大数据集中重要的和有经济价值的关系。最主流的有：
+
+-  先验算法 Apriori algorithm
+-  Eclat算法 Eclat algorithm
+
+#### 人工智能神经网络算法
+
+人工智能神经网络算法是模仿生物学神网络的结构和功能的模型。研究一系列用于回归和分类问题的模式匹配。一般有：
+
+-  感知机 Perceptron
+-  反向传播 Back-Propagation
+-  霍普菲尔德神经网络 Hopfield Network
+-  径向基网络 (RBFN, Radial Basis Function Network )
+
+#### 深度学习算法
+
+深度学习是人工智能神经网络算法的现代化更新，研究大数量的廉价计算。关注的是构建更大规模更复杂的神经网络，许多方法都与有很少带标签数据的半监督学习问题有关。比如：
+
+-  深度玻尔兹曼机 (DBM,  Deep Boltzmann Machine)
+-  深度信念网络 (DBN,  Deep Belief Networks)
+-   卷积神经网络(CNN, Convolutional Neural Network)
+-  栈式自编码器 Stacked Auto-Encoders
+
+#### 降维算法
+
+与聚类算法类似，降维算法探索数据的内在的结构，但是数据量相对较小，是在一种无监督的情况下进行的。可以用来模拟数据维度，简化可以用于监督学习的数据。许多这种算法都被用于分类和回归。
+
+-  主成分分析 (PCA, Principal Component Analysis)
+-  主成分回归 (PCR, Principal Component Regression)
+-  偏最小二乘回归 (PLSR, Partial Least Squares Regression)
+-  萨蒙映射 Sammon Mapping
+-  多维尺度分析 (MDS, Multidimensional Scaling)
+-  投影追踪 Projection Pursuit
+-  线性判别分析 (LDA,  Linear Discriminant Analysis)
+-  混合判别分析  (MDA, Mixture Discriminant Analysis)
+-  二次判别分析 (QDA, Quadratic Discriminant Analysis)
+-  弹性判别分析 (FDA, Flexible Discriminant Analysis)
+
+#### 融合算法
+
+融合算法是由多个独立训练的弱模型组成的模型，模型做出的预测是通过一些方法融合出来的。关注的主要是如何将弱模型的结果结合，以及如何结合。主要有：
+
+-  Boosting算法
+-  Bagging算法 (Bootstrapped Aggregation )
+-  AdaBoost是算法
+-   泛化堆叠算法 (Stacked Generalization)
+-   Gradient Boosting算法 (GBM, Gradient Boosting Machines)
+-  Gradient Boosted Regression Trees (GBRT)
+-  随机森林 Random Forest
+
+#### 其他算法
+
+目前列举出的算法并不包括机器算法实施过程中的算法，比如特征选择算法，算法精确率评估，性能评估等。
+
+也不包括特定子领域的算法，比如：
+
+-  Computational intelligence (evolutionary algorithms, etc.)
+
+-  Computer Vision (CV)
+
+-  Natural Language Processing (NLP)
+
+-  Recommender Systems
+
+-  Reinforcement Learning
+
+-  Graphical Models
+
+   ​
 
