@@ -1,7 +1,5 @@
 # Machine Learning Algorithm Recipes in scikit-learn
 
->  本文是原文的简略版笔记，英文原版[在此](http://machinelearningmastery.com/get-your-hands-dirty-with-scikit-learn-now/)
-
 scikit-learn提供Python语言实现的监督和无监督学习的算法。这个库基于*SciP*,包括：
 
 -  **NumPy**:n维度数组基础包
@@ -31,11 +29,11 @@ scikit-learn提供Python语言实现的监督和无监督学习的算法。这�
 
    3. 安装SciPy及其依赖：`sudo port install py35-numpy py35-scipy py35-matplotlib py35-pandas py35-statsmodels py35-pip`
 
-      -  为了保证pip是默认使用的： `sudo port select --set pip pip35·`
-
       -  如果你成功安装了，恭喜你。反正我没安装成功一个叫GMP的依赖。所以这个依赖是我自己手动安装的。
 
          从[官网](https://gmplib.org/)下载最新的bz2压缩包，在下载目录中`tar -jvxf gmp-5.1.0.tar.bz2`。进入目标文件夹，`./configure --enable-cxx`。别急，如果这步有问题，提示*could not find a working compiler, see config.log for details*。这时候说明XCode的命令行没找到，再这样`sudo xcode-select --switch /Library/Developer/CommandLineTools/`。这时候就能搞定了。然后`make`， 'make check'， 最后`sudo make install`就安装完成了。然后回到上面的命令继续安装。
+
+      -  为了保证pip是默认使用的： `sudo port select --set pip pip35`
 
    4. 用pip安装scikit-learn: `sudo pip install -U scikit-learn`
 
@@ -46,3 +44,11 @@ scikit-learn提供Python语言实现的监督和无监督学习的算法。这�
    3. 安装Keras: `sudo pip install keras`
 
 总结：历时2个小时安装成功所有工具。基本步步都是坑，耐心看一下报错，多用google，还是都能解决的。
+
+### 试水- [鹫尾花数据集](https://archive.ics.uci.edu/ml/datasets/Iris)
+
+Iris数据集是常用的分类实验数据集，是一类多重变量分析的数据集。数据集包含150个数据集，分为3类，每类50个数据，每个数据包含4个属性。可通过花萼长度，花萼宽度，花瓣长度，花瓣宽度4个属性预测鸢尾花卉属于（Setosa，Versicolour，Virginica）三个种类中的哪一类。
+
+本程序直接使用pandas读取了UCI Machine Learning repository的[数据](https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data)。
+
+PS: 如果你的电脑里有多个版本的python，而且用的是PyCharm，在Run的时候可能会遇到not a module name的问题。这时候在preference里面找project interpretor，设置成3.5版本的python即可。
