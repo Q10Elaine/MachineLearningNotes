@@ -17,13 +17,13 @@ scikit-learn提供Python语言实现的监督和无监督学习的算法。这�
 
    目前系统版本是maxOS Sierra 10.12.5,要求XCode版本^8.2.1。在APP store下载XCode。
 
-   安装命令行： `xcode-select --install`。安装完成后可用`xcode-select -p`检验是否成功。有些情况下需要这样来同意使用条款`sudo xcodebuild -license`。
+   安装命令行： `xcode-select --install`。安装完成后可用`xcode-select -p`检验是否成功。如果你装成功了，you are a lucky dog。我装的时候点完同意使用条款就没有然后了，Stack Overflow上的兄弟是这样解的：`sudo xcodebuild -license`。用空格翻到最下方，打agree同意后再打开XCode就可以了。
 
 2. 安装[Macports](https://www.macports.org/)：包管理工具。
 
    安装成功后先进行更新升级`sudo port selfupdate`。
 
-3. Install SciPy Libraries：
+3. 安装 SciPy库：
 
    1. 安装python3.5： `sudo port install python35`
 
@@ -31,14 +31,18 @@ scikit-learn提供Python语言实现的监督和无监督学习的算法。这�
 
    3. 安装SciPy及其依赖：`sudo port install py35-numpy py35-scipy py35-matplotlib py35-pandas py35-statsmodels py35-pip`
 
-      PS: 为了保证pip是默认使用的： `sudo port select --set pip pip35·`
+      -  为了保证pip是默认使用的： `sudo port select --set pip pip35·`
+
+      -  如果你成功安装了，恭喜你。反正我没安装成功一个叫GMP的依赖。所以这个依赖是我自己手动安装的。
+
+         从[官网](https://gmplib.org/)下载最新的bz2压缩包，在下载目录中`tar -jvxf gmp-5.1.0.tar.bz2`。进入目标文件夹，`./configure --enable-cxx`。别急，如果这步有问题，提示*could not find a working compiler, see config.log for details*。这时候说明XCode的命令行没找到，再这样`sudo xcode-select --switch /Library/Developer/CommandLineTools/`。这时候就能搞定了。然后`make`， 'make check'， 最后`sudo make install`就安装完成了。然后回到上面的命令继续安装。
 
    4. 用pip安装scikit-learn: `sudo pip install -U scikit-learn`
 
-   5. ​
-
-4. Install Deep Learning Libraries
+4. 安装深度学习库
 
    1. 安装Theano: `sudo pip install theano`
    2. 安装TensorFlow: `sudo pip install tensorflow`
    3. 安装Keras: `sudo pip install keras`
+
+总结：历时2个小时安装成功所有工具。基本步步都是坑，耐心看一下报错，多用google，还是都能解决的。
