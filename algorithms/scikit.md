@@ -33,7 +33,7 @@ scikit-learn提供Python语言实现的监督和无监督学习的算法。这�
 
          从[官网](https://gmplib.org/)下载最新的bz2压缩包，在下载目录中`tar -jvxf gmp-5.1.0.tar.bz2`。进入目标文件夹，`./configure --enable-cxx`。别急，如果这步有问题，提示*could not find a working compiler, see config.log for details*。这时候说明XCode的命令行没找到，再这样`sudo xcode-select --switch /Library/Developer/CommandLineTools/`。这时候就能搞定了。然后`make`， 'make check'， 最后`sudo make install`就安装完成了。然后回到上面的命令继续安装。
 
-      -  为了保证pip是默认使用的： `sudo port select --set pip pip35`
+      - 为了保证pip是默认使用的： `sudo port select --set pip pip35`
 
    4. 用pip安装scikit-learn: `sudo pip install -U scikit-learn`
 
@@ -45,10 +45,59 @@ scikit-learn提供Python语言实现的监督和无监督学习的算法。这�
 
 总结：历时2个小时安装成功所有工具。基本步步都是坑，耐心看一下报错，多用google，还是都能解决的。
 
-### 试水- [鹫尾花数据集](https://archive.ics.uci.edu/ml/datasets/Iris)
+### 试水- [鸢尾花数据集](https://archive.ics.uci.edu/ml/datasets/Iris)
 
-Iris数据集是常用的分类实验数据集，是一类多重变量分析的数据集。数据集包含150个数据集，分为3类，每类50个数据，每个数据包含4个属性。可通过花萼长度，花萼宽度，花瓣长度，花瓣宽度4个属性预测鸢尾花卉属于（Setosa，Versicolour，Virginica）三个种类中的哪一类。
+本程序直接使用pandas读取了UCI Machine Learning repository的[数据](https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data)。基本操作步骤共有四步。
 
-本程序直接使用pandas读取了UCI Machine Learning repository的[数据](https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data)。
+1. 加载样本数据：scikit-learn自带一些标准的数据集，比如鸢尾花。Iris数据集是常用的分类实验数据集，是一类多重变量分析的数据集。数据集包含150个数据集，分为3类，每类50个数据，每个数据包含4个属性。可通过花萼长度，花萼宽度，花瓣长度，花瓣宽度4个属性预测鸢尾花卉属于（Setosa，Versicolour，Virginica）三个种类中的哪一类。数据集一般是一个*n样本，m特性*的数组。
+
+```python
+from sklearn import datasets
+iris = datasets.load_iris()
+print(iris.data)
+```
+
+​	也可以使用pandas读取数据，并且同时可以得到很多统计数据
+
+```python
+import pandas
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
+names = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'class']
+dataset = pandas.read_csv(url, names=names)
+```
+
+2. 观察数据
+
+   -  查看汇总数据：如果是用pandas导入数据，可以很方便的查看一些数据的情况。
+
+      ``` python
+      print(dataset.shape) 					# 获取样本条数和属性总数
+      print(dataset.describe())    			# 打印出总数，均值，最大最小值之类的各种数据
+      print(dataset.groupby('class').size())  # 打印出根据class关键字分类的数据集大小
+      ```
+
+   -  数据可视化
+
+      ```python
+      import matplotlib.pyplot as plt
+      # 箱线图
+      dataset.plot(kind='box', subplots=True, layout=(2,2), sharex=False, sharey=False) 
+      plt.show()
+      # 各个维度的柱状图
+      dataset.hist()
+      plt.show() 
+      ```
+
+3. 选择算法：创建模型，评估精确度。
+
+   1. 创建校验数据集：
+
+   ​
+
+   Later, we will use statistical methods to estimate the accuracy of the models that we create on unseen data. We also want a more concrete estimate of the accuracy of the best model on unseen data by evaluating it on actual unseen data.
+
+   That is, we are going to hold back some data that the algorithms will not get to see and we will use this data to get a second and independent idea of how accurate the best model might actually be.
+
+   We will split the loaded dataset into two, 80% of which we will use to train our models and 20% that we will hold back as a validation dataset.
 
 PS: 如果你的电脑里有多个版本的python，而且用的是PyCharm，在Run的时候可能会遇到not a module name的问题。这时候在preference里面找project interpretor，设置成3.5版本的python即可。
