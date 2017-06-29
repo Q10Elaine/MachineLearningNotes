@@ -90,14 +90,97 @@ dataset = pandas.read_csv(url, names=names)
 
 3. 选择算法：创建模型，评估精确度。
 
-   1. 创建校验数据集：
+   1. 创建校验数据集：用统计方法估算模型的精确度。我们也需要将模型运用到未知数据上对其精确度做具体的估算。所以，我们要保留一些数据用于二次校验。一般是将数据集分成两部分，80%用于训练模型，20%作为校验数据集。
+
+      ``` python
+      # Split-out validation dataset
+      array = dataset.values
+      X = array[:,0:4]
+      Y = array[:,4]
+      validation_size = 0.20
+      seed = 7
+      X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(X, Y, test_size=validation_size, random_state=seed)
+      ```
+
+   2. 测试模型：我们并不知道哪种算法，配置对于当前的问题是最好的。由于从数据可视化的图中可以看出有些类在有些维度是部分线性分割的。所以就尝试以下6种算法。
+
+   -  Logistic Regression (LR)
+   -  Linear Discriminant Analysis (LDA)
+   -  K-Nearest Neighbors (KNN).
+   -  Classification and Regression Trees (CART).
+   -  Gaussian Naive Bayes (NB).
+   -  Support Vector Machines (SVM).
+
+   这些算法中包含简单线性的(LR, LDA), 非线性的(KNN, CART, NB, SVM)。每次运行前需要重置随机数种子，保证每个算法的试用都是用的相同的数据分割，结果是可比较的。
+
+   ``` python
+   # Spot Check Algorithms
+   models = []
+   models.append(('LR', LogisticRegression()))
+   models.append(('LDA', LinearDiscriminantAnalysis()))
+   models.append(('KNN', KNeighborsClassifier()))
+   models.append(('CART', DecisionTreeClassifier()))
+   models.append(('NB', GaussianNB()))
+   models.append(('SVM', SVC()))
+   # evaluate each model in turn
+   results = []
+   names = []
+   for name, model in models:
+   	kfold = model_selection.KFold(n_splits=10, random_state=seed)
+   	cv_results = model_selection.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=scoring)
+   	results.append(cv_results)
+   	names.append(name)
+   	msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+   	print(msg)
+   ```
 
    ​
 
-   Later, we will use statistical methods to estimate the accuracy of the models that we create on unseen data. We also want a more concrete estimate of the accuracy of the best model on unseen data by evaluating it on actual unseen data.
+   3. 选择最佳模型：我们现在有6个模型和精确性估计。我们需要比较这些模型，选择精确度最佳的模型。根据第2步的操作，我们可以得到以下数据:
 
-   That is, we are going to hold back some data that the algorithms will not get to see and we will use this data to get a second and independent idea of how accurate the best model might actually be.
+   ````
+   LR: 0.966667 (0.040825)
+   LDA: 0.975000 (0.038188)
+   KNN: 0.983333 (0.033333)
+   CART: 0.975000 (0.038188)
+   NB: 0.975000 (0.053359)
+   SVM: 0.981667 (0.025000)
+   ````
 
-   We will split the loaded dataset into two, 80% of which we will use to train our models and 20% that we will hold back as a validation dataset.
+   从数据中可以看出KNN算法的效果最好。
 
-PS: 如果你的电脑里有多个版本的python，而且用的是PyCharm，在Run的时候可能会遇到not a module name的问题。这时候在preference里面找project interpretor，设置成3.5版本的python即可。
+   4. 校验：用校验数据集检验模型精确性。设置一个校验数据集是很有必要的，以免训练集过度适应，或者数据泄露。这些都会导致过分乐观的结果。
+
+   我们用KNN模型预测校验数据集，将结果汇总出来制作一个混淆矩阵和分类报告。
+
+   ``` python
+   # Make predictions on validation dataset
+   knn = KNeighborsClassifier()
+   knn.fit(X_train, Y_train)
+   predictions = knn.predict(X_validation)
+   print(accuracy_score(Y_validation, predictions))
+   print(confusion_matrix(Y_validation, predictions))
+   print(classification_report(Y_validation, predictions))
+   ```
+
+   可以看到有90%的精确度。从混淆矩阵中可以看出有3个错误预测。分类报告显示有了每一类的精确度，召回率，f1分和支持度。
+
+   ``` python
+   0.9
+
+   [[ 7  0  0]
+    [ 0 11  1]
+    [ 0  2  9]]
+
+                precision    recall  f1-score   support
+
+   Iris-setosa       1.00      1.00      1.00         7
+   Iris-versicolor   0.85      0.92      0.88        12
+   Iris-virginica    0.90      0.82      0.86        11
+
+   avg / total       0.90      0.90      0.90        30
+   ```
+
+   ​
+
+   PS: 如果你的电脑里有多个版本的python，而且用的是PyCharm，在Run的时候可能会遇到not a module name的问题。这时候在preference里面找project interpretor，设置成3.5版本的python即可。
