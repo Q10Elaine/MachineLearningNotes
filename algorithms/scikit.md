@@ -184,3 +184,4 @@ dataset = pandas.read_csv(url, names=names)
    ​
 
    PS: 如果你的电脑里有多个版本的python，而且用的是PyCharm，在Run的时候可能会遇到not a module name的问题。这时候在preference里面找project interpretor，设置成3.5版本的python即可。
+
